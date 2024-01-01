@@ -1,21 +1,35 @@
-
 import TodoItem from "./TodoItem";
 import "./todo.css";
 import axios from "axios";
-import {convertUnixTimestamp} from "../GetDateAndTime";
+import { convertUnixTimestamp } from "../GetDateAndTime";
+import ClockIcon from "./clock/ClockIcon";
 
-export function DisplayTodo({ todos, setTodoTask, setSelectedDateTime, setButtonText, setIsEmptyTask, getTodos }) {
+export function DisplayTodo({
+  todos,
+  setTodoTask,
+  setSelectedDateTime,
+  setButtonText,
+  setIsEmptyTask,
+  getTodos,
+}) {
   function editButtonGotClicked(id, value, time) {
     deleteButtonGotClicked(id);
     setTodoTask(value);
     setButtonText("Update Task");
-    const [ year, month, day, hours, minutes ] = convertUnixTimestamp(time);
+    const [year, month, day, hours, minutes] = convertUnixTimestamp(time);
     const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
     setSelectedDateTime(formattedDateTime);
   }
 
   async function deleteButtonGotClicked(id) {
+    //when isEmptyTask is true and then we click the delete button.
     setIsEmptyTask(false);
+    //After update button got clicked if the user donot update and delete another task.
+    // setButtonText("Add Task");
+    // setTodoTask("");
+    // setSelectedDateTime(currentDateTime);
+
+
     //delete todo from db
     const deleted = await axios
       .post(
@@ -27,24 +41,31 @@ export function DisplayTodo({ todos, setTodoTask, setSelectedDateTime, setButton
       )
       .catch((err) => {
         console.log(err);
-      })
-        
-      // console.log(deleted.status);
+      });
 
-      if (deleted.status === 200) {
-        getTodos();
-      } 
+    // console.log(deleted.status);
+
+    if (deleted.status === 200) {
+      getTodos();
+    }
   }
 
   return (
     <div>
       {todos.map((item) => (
         <div className="todoItem" key={item.id}>
+        
           <TodoItem text={item.value} time={item.time} />
-          <div>
+          
+          <div className="todocontainerIcon">
+          <div className="clockIcon">
+          <ClockIcon time={item.time} />
+          </div>
             <button
               className="todoIcon"
-              onClick={() => editButtonGotClicked(item.id, item.value, item.time)}
+              onClick={() =>
+                editButtonGotClicked(item.id, item.value, item.time)
+              }
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -82,6 +103,7 @@ export function DisplayTodo({ todos, setTodoTask, setSelectedDateTime, setButton
             </button>
           </div>
         </div>
+        
       ))}
     </div>
   );

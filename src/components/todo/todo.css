@@ -64,11 +64,23 @@
   padding: 10px;
 }
 
+.todocontainerIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .todoIcon {
   width: 2rem;
   height: 2rem;
   border: none;
   background-color: white;
   /* margin-left: 0.5rem; */
+}
+
+.clockIcon {
+  margin-right: 0.3rem;
+  font-size: 1.2rem;
+
 }
 

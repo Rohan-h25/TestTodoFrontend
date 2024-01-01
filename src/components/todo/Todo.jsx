@@ -15,25 +15,29 @@ function Todo() {
     return Math.floor(Math.random() * 1000000 + 1);
   }
 
-  function getTodos() {
-    axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_URL}/todos`,
-        // .get("http://localhost:4000/todos",
-        { withCredentials: true }
-      )
-      .then((resObject) => {
-        //auth successful now setTodos
-        setTodos(resObject.data.todos);
+  async function getTodos() {
+    const receivedtodos = await axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/todos`, {
+        withCredentials: true,
       })
       .catch((err) => {
         console.log(err);
       });
+
+    if (receivedtodos.status === 200) {
+      //auth successful now setTodos
+      // console.log("receivedtodos", receivedtodos);
+      setTodos(receivedtodos.data.todos);
+    }
   }
 
   useEffect(() => {
-    getTodos();
+    getTodos(currentDateTime);
   }, []);
+
+  useEffect(() => {
+    getTodos();
+  }, [selectedDateTime]);
 
   async function handleTodoTaskSubmit(ev) {
     ev.preventDefault();
@@ -57,7 +61,6 @@ function Todo() {
       const addedtodo = await axios
         .post(
           `${process.env.REACT_APP_BACKEND_URL}/addtodo`,
-          // "http://localhost:4000/addtodo",
           { todo },
           { withCredentials: true }
         )

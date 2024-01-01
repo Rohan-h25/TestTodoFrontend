@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-import {convertUnixTimestamp} from "../GetDateAndTime";
+import {convertUnixTimestamp} from "../../GetDateAndTime";
 
 const ClockIcon = ({time}) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -18,7 +18,7 @@ const ClockIcon = ({time}) => {
 
   return (
     <>
-      <div className="clock-icon" onClick={handleIconClick}>
+      <div onClick={handleIconClick}>
         🕒
       </div>
 

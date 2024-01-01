@@ -6,7 +6,6 @@ function Header({user}) {
 
   function handlelogout() {
     window.open(`${process.env.REACT_APP_BACKEND_URL}/auth/logout`, "_self");
-    // window.open("http://localhost:4000/auth/logout", "_self");
   }
 
   return (
