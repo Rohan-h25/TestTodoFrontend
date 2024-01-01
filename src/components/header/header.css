@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #9747ff;
+  color: white;
+  height: 12vh;
+}
+
+.headerLogoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.headerIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 3rem;
+  margin-right: 0.3rem;
+}
+
+.headerIconText {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.headerbutton {
+  background-color: #9747ff;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  margin-right: 3rem;
+}
+
+.headerText {
+  margin-right: 3rem;
+  font-size: 1.2rem;
+}
+
+.removeLinkCss {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-height: 350px) {
+  .header {
+    height: 100%;
+  }
+}

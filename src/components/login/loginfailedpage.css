@@ -1,0 +1,12 @@
+.loginfailed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginfailedtext {
+  font-size: 1.2rem;
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+}
+
