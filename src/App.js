@@ -15,9 +15,7 @@ function App() {
 
   useEffect(() => {
     const getUser = () => {
-      // console.log("Node: ", process.env.NODE_ENV);
-      // console.log(process.env);
-      console.log("URL: ", process.env.REACT_APP_BACKEND_URL);
+
       fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`, {
       // fetch("http://localhost:4000/auth/login/success", {
         method: "GET",
@@ -33,6 +31,8 @@ function App() {
           throw new Error("authentication has been failed!");
         })
         .then((resObject) => {
+          console.log("resObject: ", resObject);
+          console.log("user data received from backend: ", resObject.user);
           setUser(resObject.user);
         })
         .catch((err) => {
