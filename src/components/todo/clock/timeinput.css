@@ -1,0 +1,15 @@
+.timetext {
+  margin-left: 10px;
+}
+
+.timeinput {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid;
+  border-radius: 1rem;
+  border-color: lightgray;
+}

@@ -14,29 +14,6 @@ function App() {
 
   useEffect(() => {
     async function getUser() {
-      // fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`, {
-      // // fetch("http://localhost:4000/auth/login/success", {
-      //   method: "GET",
-      //   credentials: "include",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",
-      //     "Access-Control-Allow-Credentials": true,
-      //   },
-      // })
-      //   .then((response) => {
-      //     if (response.status === 200) return response.json();
-      //     throw new Error("authentication has been failed!");
-      //   })
-      //   .then((resObject) => {
-      //     // console.log("resObject: ", resObject);
-      //     // console.log("user data received from backend: ", resObject.user);
-      //     setUser(resObject.user);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-
       const islogin = await axios
         .get(`${process.env.REACT_APP_BACKEND_URL}/auth/login/success`, {
           withCredentials: true,

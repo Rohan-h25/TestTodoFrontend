@@ -1,15 +1,16 @@
 import "./todo.css";
 import { DisplayTodo } from "./DisplayTodo";
-import currentDateTime from "../GetDateAndTime";
+import TimeInput from "./clock/TimeInput";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import getCurrentTime from "../GetCurrentTime";
 
 function Todo() {
   const [todoTask, setTodoTask] = useState("");
   const [todos, setTodos] = useState([]);
   const [isEmptyTask, setIsEmptyTask] = useState(false);
-  const [selectedDateTime, setSelectedDateTime] = useState(currentDateTime);
   const [buttonText, setButtonText] = useState("Add Task");
+  const [selectedTime, setSelectedTime] = useState(getCurrentTime);
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * 1000000 + 1);
@@ -32,12 +33,8 @@ function Todo() {
   }
 
   useEffect(() => {
-    getTodos(currentDateTime);
-  }, []);
-
-  useEffect(() => {
     getTodos();
-  }, [selectedDateTime]);
+  }, []);
 
   async function handleTodoTaskSubmit(ev) {
     ev.preventDefault();
@@ -47,16 +44,20 @@ function Todo() {
     if (todoTask === "") {
       setIsEmptyTask(true);
     } else {
-      //making todo using id and todoTask and date and time.
 
-      // Convert the selected date and time to Unix timestamp
-      const unixTimestamp = Date.parse(selectedDateTime) / 1000;
+      //making todo using id and todoTask and time.
+
+      // Split the time string into hours and minutes
+      const [newHours, newMinutes] = selectedTime.split(":");
+      const convertedtime =
+        parseInt(newHours, 10) * 60 + parseInt(newMinutes, 10);
 
       const todo = {
         id: generateRandomNumber(),
         value: todoTask,
-        time: unixTimestamp,
+        time: convertedtime,
       };
+
       //send todo to backend
       const addedtodo = await axios
         .post(
@@ -85,7 +86,7 @@ function Todo() {
         <DisplayTodo
           todos={todos}
           setTodoTask={setTodoTask}
-          setSelectedDateTime={setSelectedDateTime}
+          setSelectedTime={setSelectedTime}
           setButtonText={setButtonText}
           setIsEmptyTask={setIsEmptyTask}
           getTodos={getTodos}
@@ -101,19 +102,7 @@ function Todo() {
             onChange={(e) => setTodoTask(e.target.value)}
           ></input>
 
-          <label className="datatimetext" htmlFor="todo-date-time">
-            Set a date and time to complete your task:
-          </label>
-          <input
-            className="todoTaskInput"
-            type="datetime-local"
-            id="todo-date-time"
-            name="todo-date-time"
-            value={selectedDateTime}
-            onChange={(e) => setSelectedDateTime(e.target.value)}
-            min={currentDateTime}
-          />
-
+          <TimeInput selectedTime={selectedTime} setSelectedTime={setSelectedTime} />
           <button className="todoTaskButton">{buttonText}</button>
         </form>
       </div>

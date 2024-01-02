@@ -1,13 +1,12 @@
 import TodoItem from "./TodoItem";
 import "./todo.css";
 import axios from "axios";
-import { convertUnixTimestamp } from "../GetDateAndTime";
 import ClockIcon from "./clock/ClockIcon";
 
 export function DisplayTodo({
   todos,
   setTodoTask,
-  setSelectedDateTime,
+  setSelectedTime,
   setButtonText,
   setIsEmptyTask,
   getTodos,
@@ -16,26 +15,21 @@ export function DisplayTodo({
     deleteButtonGotClicked(id);
     setTodoTask(value);
     setButtonText("Update Task");
-    const [year, month, day, hours, minutes] = convertUnixTimestamp(time);
-    const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
-    setSelectedDateTime(formattedDateTime);
+
+    const hr = Math.floor(time/60);
+    const min = time % 60;
+    const newTime = `${hr}:${min}`;
+    setSelectedTime(newTime);
   }
 
   async function deleteButtonGotClicked(id) {
     //when isEmptyTask is true and then we click the delete button.
     setIsEmptyTask(false);
-    //After update button got clicked if the user donot update and delete another task.
-    // setButtonText("Add Task");
-    // setTodoTask("");
-    // setSelectedDateTime(currentDateTime);
-
 
     //delete todo from db
     const deleted = await axios
       .post(
         `${process.env.REACT_APP_BACKEND_URL}/deletetodo`,
-
-        // "http://localhost:4000/deletetodo",
         { id },
         { withCredentials: true }
       )
@@ -44,7 +38,6 @@ export function DisplayTodo({
       });
 
     // console.log(deleted.status);
-
     if (deleted.status === 200) {
       getTodos();
     }
@@ -54,13 +47,12 @@ export function DisplayTodo({
     <div>
       {todos.map((item) => (
         <div className="todoItem" key={item.id}>
-        
-          <TodoItem text={item.value} time={item.time} />
-          
+          <TodoItem text={item.value} />
+
           <div className="todocontainerIcon">
-          <div className="clockIcon">
-          <ClockIcon time={item.time} />
-          </div>
+            <div className="clockIcon">
+              <ClockIcon time={item.time} />
+            </div>
             <button
               className="todoIcon"
               onClick={() =>
@@ -103,7 +95,6 @@ export function DisplayTodo({
             </button>
           </div>
         </div>
-        
       ))}
     </div>
   );

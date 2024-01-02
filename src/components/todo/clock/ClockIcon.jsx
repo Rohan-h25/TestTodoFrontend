@@ -1,44 +1,48 @@
-import React from "react";
-import Modal from 'react-modal';
-import {convertUnixTimestamp} from "../../GetDateAndTime";
+import { useState, useEffect } from "react";
+import "./clockicon.css";
+import {changetimeformate} from "../../GetCurrentTime";
 
-const ClockIcon = ({time}) => {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [dateTimeComponents, setDateTimeComponents] = React.useState([]);
+const ClockIcon = ({ time }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleIconClick = () => {
-    const components = convertUnixTimestamp(time);
-    setDateTimeComponents(components);
-    setIsModalOpen(true);
+  const [hr, min, ampm] = changetimeformate(time);
+
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      closeModal();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <>
-      <div onClick={handleIconClick}>
-        🕒
+    <div>
+      <div className="clock-icon" onClick={handleToggleModal}>
+      🕒
       </div>
 
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Date and Time Modal"
-      >
-        <h2>Complete the task before: </h2>
-        <p>
-          {/* {`Day: ${dateTimeComponents[2]}, Month: ${dateTimeComponents[1]}, Year: ${dateTimeComponents[0]}`} */}
-          {`${dateTimeComponents[2]}-${dateTimeComponents[1]}-${dateTimeComponents[0]}`}
-        </p>
-        <p>
-          {/* {`Hours: ${dateTimeComponents[3]}, Minutes: ${dateTimeComponents[4]}`} */}
-          {`${dateTimeComponents[3]}-${dateTimeComponents[4]}`}
-        </p>
-        <button onClick={closeModal}>Close</button>
-      </Modal>
-    </>
+      {isModalOpen && (
+        <div className="custom-modal">
+          <h2 className="clocktext">Complete the task before: </h2>
+          <p className="clocktime">{hr}:{min} {ampm}</p>
+          <button className="clockbutton" onClick={handleToggleModal}>
+            Close
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
