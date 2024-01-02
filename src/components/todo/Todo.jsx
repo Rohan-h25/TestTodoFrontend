@@ -1,6 +1,6 @@
 import "./todo.css";
 import { DisplayTodo } from "./DisplayTodo";
-import TimeInput from "./clock/TimeInput";
+import TimeInput from "./TimeInput/TimeInput";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import getCurrentTime from "../GetCurrentTime";
