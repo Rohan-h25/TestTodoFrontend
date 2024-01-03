@@ -1,6 +1,5 @@
 import Layout from "./components/Layout";
 import Todo from "./components/todo/Todo";
-import Home from "./components/home/Home";
 import LoginPage from "./components/login/LoginPage";
 import { LoginFailedPage } from "./components/login/LoginFailedPage";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -21,7 +20,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-
+  
       if (islogin.status === 200) {
         //auth successful now setUser
         // console.log("get login user", islogin.data.user);
@@ -35,7 +34,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout user={user} />}>
-          <Route path="/" element={<Home user={user} />} />
+          <Route path="/" element={!user? <LoginPage /> : <div></div>} />
           <Route
             path="/login"
             element={user ? <Navigate to={"/todo"} /> : <LoginPage />}

@@ -1,7 +1,9 @@
+import "./todoitem.css";
+
 function TodoItem({ text }) {
   return (
     <div>
-      <div>• {text}</div>
+      <div className="todoitemtext">{text}</div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
-import TodoItem from "./TodoItem";
+import TodoItem from "./todoitem/TodoItem";
 import "./todo.css";
 import axios from "axios";
-import ClockIcon from "./clock/ClockIcon";
+import ShowTime from "./clock/ShowTime";
+import TodoList from "./Icons/TodoListIcon";
 
 export function DisplayTodo({
   todos,
@@ -49,12 +50,17 @@ export function DisplayTodo({
       {todos.length === 0 ? setIsEmptyTodo(true) : setIsEmptyTodo(false)}
       {todos.map((item) => (
         <div className="todoItem" key={item.id}>
-          <TodoItem text={item.value} />
-
-          <div className="todocontainerIcon">
-            <div className="clockIcon">
-              <ClockIcon time={item.time} />
+          <div className="todoItemIcontimetext">
+            <TodoList />
+            <div className="todoItemtextcontainer">
+              <TodoItem text={item.value} />
             </div>
+          </div>
+          <ShowTime time={item.time} />
+          <div className="todocontainerIcon">
+            {/* <div className="clockIcon">
+              <ClockIcon time={item.time} />
+            </div> */}
             <button
               className="todoIcon"
               onClick={() =>
