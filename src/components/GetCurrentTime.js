@@ -5,8 +5,11 @@ function getCurrentTime() {
   const hours = now.getHours();
   const minutes = now.getMinutes();
 
+  const newhr = hours < 10 ? `0${hours}` : hours;
+  const newmin = minutes < 10 ? `0${minutes}` : minutes;
+
   // Create the formatted time string
-  const currentTime = `${hours}:${minutes}`;
+  const currentTime = `${newhr}:${newmin}`;
 
   return currentTime;
 }

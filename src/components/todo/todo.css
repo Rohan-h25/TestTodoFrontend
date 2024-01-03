@@ -12,14 +12,23 @@
   background-color: white;
   padding: 2rem;
   border-radius: 30px;
-  width: 100%;
-  max-width: 28rem;
+  /* width: 100%; */
+  max-width: 25rem;
+  min-width: 20rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
 .todoError {
   color: red;
+  margin-top: 1rem;
+  margin-left: 10px;
+}
+
+.todoEmpty {
+  margin-top: 1rem;
+  margin-left: 10px;
+  color: gray;
 }
 
 .todoTaskInput {

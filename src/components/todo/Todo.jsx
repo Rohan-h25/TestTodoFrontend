@@ -9,8 +9,9 @@ function Todo() {
   const [todoTask, setTodoTask] = useState("");
   const [todos, setTodos] = useState([]);
   const [isEmptyTask, setIsEmptyTask] = useState(false);
+  const [isEmptyTodo, setIsEmptyTodo] = useState(true);
   const [buttonText, setButtonText] = useState("Add Task");
-  const [selectedTime, setSelectedTime] = useState(getCurrentTime);
+  const [selectedTime, setSelectedTime] = useState(getCurrentTime());
 
   function generateRandomNumber() {
     return Math.floor(Math.random() * 1000000 + 1);
@@ -80,8 +81,12 @@ function Todo() {
   return (
     <div className="todo">
       <div className="todoContainer">
+      <button className="todoTaskButton">Todo List</button>
         {isEmptyTask && (
           <div className="todoError">Error! Empty task cannot be added.</div>
+        )}
+        {isEmptyTodo && (
+          <div className="todoEmpty">Empty List</div>
         )}
         <DisplayTodo
           todos={todos}
@@ -90,6 +95,7 @@ function Todo() {
           setButtonText={setButtonText}
           setIsEmptyTask={setIsEmptyTask}
           getTodos={getTodos}
+          setIsEmptyTodo = {setIsEmptyTodo}
         />
         <form onSubmit={handleTodoTaskSubmit}>
           <input

@@ -10,6 +10,7 @@ export function DisplayTodo({
   setButtonText,
   setIsEmptyTask,
   getTodos,
+  setIsEmptyTodo,
 }) {
   function editButtonGotClicked(id, value, time) {
     deleteButtonGotClicked(id);
@@ -45,6 +46,7 @@ export function DisplayTodo({
 
   return (
     <div>
+      {todos.length === 0 ? setIsEmptyTodo(true) : setIsEmptyTodo(false)}
       {todos.map((item) => (
         <div className="todoItem" key={item.id}>
           <TodoItem text={item.value} />
