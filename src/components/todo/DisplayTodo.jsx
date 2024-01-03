@@ -17,7 +17,7 @@ export function DisplayTodo({
     setTodoTask(value);
     setButtonText("Update Task");
 
-    const hr = Math.floor(time/60);
+    const hr = Math.floor(time / 60);
     const min = time % 60;
     const newTime = `${hr}:${min}`;
     setSelectedTime(newTime);

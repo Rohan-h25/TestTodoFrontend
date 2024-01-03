@@ -81,7 +81,7 @@ function Todo() {
   return (
     <div className="todo">
       <div className="todoContainer">
-      <button className="todoTaskButton">Todo List</button>
+      <button className="todoListButton">Todo List</button>
         {isEmptyTask && (
           <div className="todoError">Error! Empty task cannot be added.</div>
         )}
