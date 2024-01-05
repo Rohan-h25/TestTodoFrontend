@@ -20,7 +20,11 @@ export function DisplayTodo({
 
     const hr = Math.floor(time / 60);
     const min = time % 60;
-    const newTime = `${hr}:${min}`;
+
+    const newhr = hr < 10 ? `0${hr}` : hr;
+    const newmin = min < 10 ? `0${min}` : min;
+
+    const newTime = `${newhr}:${newmin}`;
     setSelectedTime(newTime);
   }
 
@@ -31,7 +35,7 @@ export function DisplayTodo({
     //delete todo from db
     const deleted = await axios
       .post(
-        `${process.env.REACT_APP_BACKEND_URL}/deletetodo`,
+        `${process.env.REACT_APP_BACKEND_URL}/todo/delete`,
         { id },
         { withCredentials: true }
       )

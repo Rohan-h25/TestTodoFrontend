@@ -19,7 +19,7 @@ function Todo() {
 
   async function getTodos() {
     const receivedtodos = await axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/todos`, {
+      .get(`${process.env.REACT_APP_BACKEND_URL}/todo`, {
         withCredentials: true,
       })
       .catch((err) => {
@@ -62,7 +62,7 @@ function Todo() {
       //send todo to backend
       const addedtodo = await axios
         .post(
-          `${process.env.REACT_APP_BACKEND_URL}/addtodo`,
+          `${process.env.REACT_APP_BACKEND_URL}/todo/add`,
           { todo },
           { withCredentials: true }
         )
